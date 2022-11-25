@@ -9,6 +9,7 @@ const {
   getOneUserNoDogs,
   getOneUserWithDogs,
   getAllDogs,
+  getUserByEmail,
 } = require("./handlers/getHandlers");
 const {
   addNewDog,
@@ -41,6 +42,8 @@ express()
   .get("/API/users/:userId", getOneUserNoDogs)
   //GET one user with the dogs!
   .get("/API/users/:userId/dogs", getOneUserWithDogs)
+  //GET one user by its email
+  .get("/API/currentUser/:email", getUserByEmail)
 
   //POST a new user with a dog
   .post("/API/addNewUser", addNewUser)

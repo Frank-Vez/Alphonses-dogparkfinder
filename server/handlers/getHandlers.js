@@ -33,6 +33,29 @@ const getOneUserNoDogs = async (req, res) => {
   }
 };
 
+const getUserByEmail = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const user = await db.collection(userCollection).findOne({ email: email });
+    const userDogs = await db
+      .collection(dogsCollection)
+      .find({ _id: { $in: user.dogs } })
+      .toArray();
+    if (user) {
+      res.status(200).json({ user: user, dogs: userDogs });
+    } else {
+      res.status(206).json({ status: 301, mustCreateProfile: true });
+    }
+  } catch (err) {
+    res.status(403).json({ message: err.message });
+  } finally {
+    client.close();
+  }
+};
+
 const getOneUserWithDogs = async (req, res) => {
   const { userId } = req.params;
   try {
@@ -211,4 +234,5 @@ module.exports = {
   getOneUserNoDogs,
   getOneUserWithDogs,
   getAllDogs,
+  getUserByEmail,
 };
