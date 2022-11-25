@@ -65,6 +65,7 @@ const StyledHeader = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px dotted var(--color-secondary-blue);
 `;
 
 const StyledLogo = styled.a`
