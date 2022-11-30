@@ -3,7 +3,10 @@
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
-const { MONGO_URI, dbName, dogParksCollection } = process.env;
+const { MONGO_URI, dbName, dogParksCollection, breedsCollection } = process.env;
+const { breeds } = require("./dummy data/breeds");
+
+console.log(breeds);
 
 const dogParks = require("./dummy data/dogParks");
 //adds id to dogpark so that mongo wont fuck me over later with objectId() func.
@@ -34,4 +37,22 @@ const batchimport = async () => {
   }
 };
 
-batchimport();
+const breedsBatchImport = async () => {
+  const mappedBreed = breeds.map((breed) => {
+    return { _id: breed.id, name: breed.name };
+  });
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const breeds = await db
+      .collection(breedsCollection)
+      .insertMany(mappedBreed);
+    console.log(breeds);
+  } catch (err) {
+    console.log(err.message);
+  } finally {
+    client.close();
+  }
+};
+
+breedsBatchImport();

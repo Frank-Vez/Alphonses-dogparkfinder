@@ -24,8 +24,10 @@ const client = new MongoClient(MONGO_URI, options);
 // and a param with the user{_id: "c275297c-de6c-4ace-a5b2-11f52d8536b4"}
 const addNewDog = async (req, res) => {
   const dogId = uuidv4();
-  const dog = { ...req.body, _id: dogId };
-  const userId = req.param;
+  const { userId } = req.params;
+  const dog = { ...req.body, _id: dogId, owner: userId };
+  console.log(userId);
+  console.log(dog);
   try {
     await client.connect();
     const db = client.db(dbName);

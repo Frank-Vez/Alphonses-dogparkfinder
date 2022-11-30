@@ -10,6 +10,7 @@ const {
   getOneUserWithDogs,
   getAllDogs,
   getUserByEmail,
+  getAllBreeds,
 } = require("./handlers/getHandlers");
 const {
   addNewDog,
@@ -30,6 +31,8 @@ express()
   .get("/", (req, res) => {
     res.status(200).json("Hello World!");
   })
+  //get all breeds
+  .get("/API/getAllBreeds", getAllBreeds)
   //get all the parks
   .get("/API/getAllParks", getAllParks)
   //GET one park
@@ -49,7 +52,7 @@ express()
   .post("/API/addNewUser", addNewUser)
 
   //PATCH a new dog in a user and adds it to dog array
-  .patch("/API/user/:userID/addADog", addNewDog)
+  .patch("/API/user/:userId/addADog", addNewDog)
   //PATCH dog to their favorite park, add thie park id to the user's favorite park
   .patch("/API/parks/:parkId/favorite", addFavoritePark)
   //PATCH a new comment to a park

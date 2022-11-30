@@ -1,4 +1,4 @@
-export const breeds = [
+const breeds = [
   {
     id: 1,
     name: "Affenpinscher",
@@ -688,3 +688,5 @@ export const breeds = [
     name: "Yorkshire Terrier",
   },
 ];
+
+module.exports = { breeds };

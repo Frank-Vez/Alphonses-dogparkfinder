@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { UserProvider } from "./components/UserContext";
+import { ParkProvider } from "./components/ParkContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -13,9 +14,11 @@ root.render(
       clientId="8wULfsC6GNWc8TFAwUUnqKw9WmlQI9Dn"
       redirectUri="http://localhost:3000/home"
     >
-      <UserProvider>
-        <App />
-      </UserProvider>
+      <ParkProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </ParkProvider>
     </Auth0Provider>
   </React.StrictMode>
 );

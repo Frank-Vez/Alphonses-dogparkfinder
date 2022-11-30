@@ -7,6 +7,7 @@ const {
   dogParksCollection,
   userCollection,
   dogsCollection,
+  breedsCollection,
 } = process.env;
 
 const options = {
@@ -15,6 +16,21 @@ const options = {
 };
 
 const client = new MongoClient(MONGO_URI, options);
+
+const getAllBreeds = async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const breeds = await db.collection(breedsCollection).find().toArray();
+    breeds
+      ? res.status(200).json({ status: 200, data: breeds })
+      : res.status(403).json({ message: err.message });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  } finally {
+    client.close();
+  }
+};
 
 const getOneUserNoDogs = async (req, res) => {
   const { userId } = req.params;
@@ -96,7 +112,7 @@ const getAllParks = async (req, res) => {
           message: "couldnt get the parks",
         });
   } catch (err) {
-    res.status(err.status).json({
+    res.status(454).json({
       message: err.message,
     });
   } finally {
@@ -176,9 +192,9 @@ const getParkWithDetails = async (req, res) => {
       .collection(dogsCollection)
       .find({ _id: { $in: park.dogs } })
       .toArray();
-    if (infos.length === 0) {
-      throw new Error("no dogs in that park");
-    }
+    // if (infos.length === 0) {
+    //   throw new Error("no dogs in that park");
+    // }
     //create the var for the details
     let weightArr = [];
     let totalWeight = 0;
@@ -235,4 +251,5 @@ module.exports = {
   getOneUserWithDogs,
   getAllDogs,
   getUserByEmail,
+  getAllBreeds,
 };

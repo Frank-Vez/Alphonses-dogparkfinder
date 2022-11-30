@@ -47,6 +47,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+  height: 100%;
 }
 ol, ul {
 	list-style: none;
@@ -73,17 +74,20 @@ h2{
   color: var(--color-secondary-blue);
   font-family: var(--font-heading);
   font-size: 20px;
+  margin:5px;
 }
 h3{
   color: var(--color-secondary-blue);
   font-family: var(--font-heading);
   font-size: 16px;
+  margin:5px
 }
 
 p{
   color: black;
   font-family: var(--font-body);
   font-size: 18px;
+  margin: 5px;
 }
 
 a{
@@ -108,9 +112,11 @@ button{
   font-family: var(--font-heading);
   font-size: 18px;
   padding: 10px ;
-  border-radius: 10%;
+  border-radius: 10px;
   border: none;
   margin: 4px 8px;
+  max-height: 80px;
+  box-sizing: content-box;
   transition: color .3s, background-color .3s, border .3s;
   &:hover{
     border: solid var(--color-secondary-green) 3px;
