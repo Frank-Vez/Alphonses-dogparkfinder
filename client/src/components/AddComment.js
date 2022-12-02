@@ -22,6 +22,7 @@ const AddComment = ({ parkId }) => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
+    setContent("");
   };
 
   const handleOnChange = (e) => {

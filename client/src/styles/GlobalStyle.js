@@ -118,6 +118,7 @@ button{
   max-height: 80px;
   box-sizing: content-box;
   transition: color .3s, background-color .3s, border .3s;
+  position: relative;
   &:hover{
     border: solid var(--color-secondary-green) 3px;
     background-color: var(--color-yellow);

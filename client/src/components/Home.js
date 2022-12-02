@@ -14,19 +14,26 @@ import { EffectCards } from "swiper";
 import ParkCard from "./ParkCard";
 
 const Home = () => {
+  console.log("mounting the home component");
   const [favPark, setFavPark] = useState();
   const { currentUser } = useContext(UserContext);
   const { parks } = useContext(ParkContext);
-  console.log(currentUser);
 
   //fetches the currentuser's favorite park
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && parks && !favPark) {
+      console.log("fetching a fucking park details");
       fetch(`/API/parks/${currentUser.favoritePark[0]}`)
         .then((res) => res.json())
-        .then((data) => setFavPark(data.data));
+        .then((data) => {
+          if (data.status === 200) {
+            setFavPark(data.data);
+          } else {
+            console.log(data);
+          }
+        });
     }
-  }, [currentUser]);
+  }, [parks]);
   //settings for the slider
   if (parks && currentUser) {
     return (
@@ -39,10 +46,10 @@ const Home = () => {
             modules={[EffectCards]}
             className="mySwiper"
           >
-            {parks.map((park) => {
+            {parks.map((park, i) => {
               return (
                 <SwiperSlide>
-                  <ParkCard key={park._id} park={park} />
+                  <ParkCard key={park._id + i} park={park} />
                 </SwiperSlide>
               );
             })}

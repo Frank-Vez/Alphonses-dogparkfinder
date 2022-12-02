@@ -12,7 +12,7 @@ root.render(
     <Auth0Provider
       domain="dev-63al4rlon5s78bvs.us.auth0.com"
       clientId="8wULfsC6GNWc8TFAwUUnqKw9WmlQI9Dn"
-      redirectUri="http://localhost:3000/home"
+      redirectUri="http://localhost:3000/"
     >
       <ParkProvider>
         <UserProvider>

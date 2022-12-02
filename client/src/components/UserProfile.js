@@ -13,6 +13,9 @@ const UserProfile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const { currentUser, userDogs, mustCreateProfile } = useContext(UserContext);
 
+  console.log(isAuthenticated);
+  console.log(currentUser);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //when the user goes to profile page, checks if the the user has a
   //profile in our DB. if he has one, sets the profile to the current user

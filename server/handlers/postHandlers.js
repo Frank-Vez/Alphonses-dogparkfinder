@@ -7,6 +7,7 @@ const {
   dogParksCollection,
   userCollection,
   dogsCollection,
+  propositionCollection,
 } = process.env;
 
 const options = {
@@ -47,4 +48,24 @@ const addNewUser = async (req, res) => {
   }
 };
 
-module.exports = { addNewUser };
+const proposeAPark = async (req, res) => {
+  const propositionId = uuidv4();
+  const parkProposition = req.body;
+  console.log(parkProposition);
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const newProposition = await db
+      .collection(propositionCollection)
+      .insertOne({ _id: propositionId, ...parkProposition });
+    res
+      .status(200)
+      .json({ status: 200, message: "park proposed!", data: newProposition });
+  } catch (err) {
+    res.status(404).json({ status: 404, message: err.message });
+  } finally {
+    client.close();
+  }
+};
+
+module.exports = { addNewUser, proposeAPark };

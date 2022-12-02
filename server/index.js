@@ -19,7 +19,7 @@ const {
   modifyComment,
   deleteComment,
 } = require("./handlers/patchHandlers");
-const { addNewUser } = require("./handlers/postHandlers");
+const { addNewUser, proposeAPark } = require("./handlers/postHandlers");
 const port = 8000;
 
 express()
@@ -50,6 +50,8 @@ express()
 
   //POST a new user with a dog
   .post("/API/addNewUser", addNewUser)
+  //POST propose a new park
+  .post("/API/proposeAPArk", proposeAPark)
 
   //PATCH a new dog in a user and adds it to dog array
   .patch("/API/user/:userId/addADog", addNewDog)

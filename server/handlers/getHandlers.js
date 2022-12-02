@@ -109,10 +109,12 @@ const getAllParks = async (req, res) => {
           message: allParks,
         })
       : res.status(404).json({
+          status: 404,
           message: "couldnt get the parks",
         });
   } catch (err) {
     res.status(454).json({
+      status: 454,
       message: err.message,
     });
   } finally {
@@ -176,7 +178,6 @@ const getParkNoDetails = async (req, res) => {
 //GET one park only based on park Id in params with details
 const getParkWithDetails = async (req, res) => {
   const { parkId } = req.params;
-  console.log(parkId);
   try {
     await client.connect();
     const db = client.db(dbName);
@@ -206,11 +207,11 @@ const getParkWithDetails = async (req, res) => {
     infos.forEach((dog) => {
       if (dog.weight) {
         weightArr.push(dog.weight);
-        totalWeight += dog.weight;
+        totalWeight += +dog.weight;
       }
       if (dog.height) {
         heightArr.push(dog.height);
-        totalHeight += dog.height;
+        totalHeight += +dog.height;
       }
       if (dog.neutered) {
         neuteredArr.push(dog.neutered);
@@ -227,15 +228,15 @@ const getParkWithDetails = async (req, res) => {
     }
 
     const parkDetails = {
-      averageWeight: Math.floor(totalWeight / weightArr.length + 1),
-      averageHeight: Math.floor(totalHeight / heightArr.length + 1),
+      averageWeight: Math.floor(+totalWeight / +weightArr.length + 1),
+      averageHeight: Math.floor(+totalHeight / +heightArr.length + 1),
       neuteredRatio: Math.floor(
         ((+neuteredArr.length + 1) / (+infos.length + 1)) * 100
       ),
       mostCommonBreeds: Object.entries(cleanArr),
     };
 
-    res.status(200).json({ dtatus: 200, data: park, details: parkDetails });
+    res.status(200).json({ status: 200, data: park, details: parkDetails });
   } catch (err) {
     res.status(403).json({ status: 403, message: err.message });
   } finally {

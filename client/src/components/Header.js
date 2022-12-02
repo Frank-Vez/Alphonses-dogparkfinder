@@ -26,13 +26,21 @@ const Header = () => {
         <StyledLogo onClick={handleHome}>Alphonse's</StyledLogo>
       </div>
       <StyledNavButtonContainer>
+        {isAuthenticated ? (
+          <>
+            <StyledNavLink to={"/parks"}>Find a park</StyledNavLink>
+            <StyledNavLink to={"/proposeAPark"}>Propose a park</StyledNavLink>
+          </>
+        ) : null}
         <StyledNavLink to={"/about"}>About us</StyledNavLink>
         {!isLoading && !isAuthenticated ? <LoginButton /> : null}
         {!isLoading && isAuthenticated ? <LogoutButton /> : null}
         {isAuthenticated ? (
-          <a onClick={handleToUser}>
-            <StyledUser size={40} color={"var(--color-secondary-green)"} />
-          </a>
+          <>
+            <a onClick={handleToUser}>
+              <StyledUser size={40} color={"var(--color-secondary-green)"} />
+            </a>
+          </>
         ) : null}
       </StyledNavButtonContainer>
     </StyledHeader>
@@ -51,6 +59,7 @@ const StyledNavLink = styled(NavLink)`
   margin: 0 10px;
   font-family: var(--font-body);
   font-size: 18px;
+  cursor: pointer;
 `;
 
 const StyledNavButtonContainer = styled.div`

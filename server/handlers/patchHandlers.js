@@ -58,12 +58,19 @@ const addFavoritePark = async (req, res) => {
   const { parkId } = req.params;
   const dogArr = req.body.dogs;
   const userId = req.body.user;
+  const oldPark = req.body.oldPark;
+  console.log("oldpark", oldPark);
+  console.log("dogs", dogArr);
+  console.log(parkId);
   try {
     await client.connect();
     const db = client.db(dbName);
     const trueFavorite = await db
       .collection(userCollection)
       .updateOne({ _id: userId }, { $set: { hasAFavorite: true } });
+    const removeParkToOwner = await db
+      .collection(userCollection)
+      .updateOne({ _id: userId }, { $pull: { favoritePark: oldPark } });
     const addParkToOwner = await db
       .collection(userCollection)
       .updateOne({ _id: userId }, { $push: { favoritePark: parkId } });
@@ -76,6 +83,7 @@ const addFavoritePark = async (req, res) => {
       data: {
         favoritePark: addParkToOwner,
         dogs: addDogToPark,
+        oldpark: removeParkToOwner,
       },
     });
   } catch (err) {

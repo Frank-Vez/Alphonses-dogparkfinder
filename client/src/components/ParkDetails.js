@@ -1,16 +1,22 @@
 import { useParams } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { AiOutlineStar } from "react-icons/ai";
 import { CiMapPin } from "react-icons/ci";
 import { ImStatsBars } from "react-icons/im";
+import { addFavoritePark } from "./utils.js/fetches";
 
 import CommentsSection from "./CommentsSection";
+import ParkMap from "./ParkMap";
+import { UserContext } from "./UserContext";
 
 const ParkDetails = () => {
+  const { currentUser } = useContext(UserContext);
   const [toggleComments, setToggleComments] = useState(false);
+  const [toggleMap, setToggleMap] = useState(false);
   const { parkId } = useParams();
   const [parkData, setParkData] = useState(null);
+
   useEffect(() => {
     fetch(`/API/parks/${parkId}`)
       .then((res) => res.json())
@@ -21,14 +27,32 @@ const ParkDetails = () => {
     setToggleComments(!toggleComments);
   };
 
-  console.log(parkData);
+  const handleToggleMap = () => {
+    setToggleMap(!toggleMap);
+  };
+
+  console.log(currentUser);
+
+  const handleAddFavorite = () => {
+    addFavoritePark(
+      parkId,
+      currentUser._id,
+      currentUser.dogs,
+      currentUser.favoritePark[0]
+    );
+    alert("added to favorite");
+  };
+
   if (parkData) {
     return (
       <Body>
         <SubHeader>
           <h1>{parkData.name}</h1>
-          <button>
-            Make favorite
+          <button onClick={() => handleAddFavorite()}>
+            {currentUser.favoritePark[0] === parkId
+              ? "already Favorite"
+              : " Make favorite"}
+
             <AiOutlineStar />
           </button>
         </SubHeader>
@@ -44,7 +68,7 @@ const ParkDetails = () => {
                 </>
               ) : null}
 
-              <button> Get there!</button>
+              <button onClick={handleToggleMap}> Get there!</button>
             </div>
             <div>
               <ImStatsBars size={30} />
@@ -59,11 +83,11 @@ const ParkDetails = () => {
                 {parkData.averageHeight ? (
                   <p>Average height: {parkData.averageHeight}</p>
                 ) : null}
-                {parkData.mostCommonBreeds.length > 0 ? (
+                {parkData.mostCommonBreeds?.length > 0 ? (
                   <ol>
                     Most common breeds:
                     {parkData.mostCommonBreeds.slice(0, 3).map((breed) => {
-                      return <li>{breed[0]}</li>;
+                      return <li key={breed[0] + breed[1]}>{breed[0]}</li>;
                     })}
                   </ol>
                 ) : null}
@@ -75,7 +99,7 @@ const ParkDetails = () => {
         </StyledSection>
         <section>
           <button onClick={handleToggleComments}>
-            See comments about this park
+            {toggleComments ? "Hide comments" : "See comments"}
           </button>
           {toggleComments ? (
             <CommentsSection
@@ -84,6 +108,7 @@ const ParkDetails = () => {
             />
           ) : null}
         </section>
+        {toggleMap ? <ParkMap parkPosition={parkData.position} /> : null}
       </Body>
     );
   }
