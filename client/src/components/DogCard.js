@@ -27,7 +27,7 @@ const DogCard = ({ dog, currentUser }) => {
 const StyledImg = styled.img`
   max-width: 100%;
   height: auto;
-  max-height: 120px;
+  max-height: 50%;
   flex: 1 1 50%;
 `;
 
