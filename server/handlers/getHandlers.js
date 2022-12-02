@@ -62,7 +62,7 @@ const getUserByEmail = async (req, res) => {
         .collection(dogsCollection)
         .find({ _id: { $in: user.dogs } })
         .toArray();
-      res.status(200).json({ user: user, dogs: userDogs });
+      res.status(200).json({ status: 200, user: user, dogs: userDogs });
     } else {
       res.status(206).json({ status: 206, mustCreateProfile: true });
     }
