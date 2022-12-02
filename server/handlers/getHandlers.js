@@ -56,17 +56,18 @@ const getUserByEmail = async (req, res) => {
     await client.connect();
     const db = client.db(dbName);
     const user = await db.collection(userCollection).findOne({ email: email });
-    const userDogs = await db
-      .collection(dogsCollection)
-      .find({ _id: { $in: user.dogs } })
-      .toArray();
+
     if (user) {
+      const userDogs = await db
+        .collection(dogsCollection)
+        .find({ _id: { $in: user.dogs } })
+        .toArray();
       res.status(200).json({ user: user, dogs: userDogs });
     } else {
-      res.status(206).json({ status: 301, mustCreateProfile: true });
+      res.status(206).json({ status: 206, mustCreateProfile: true });
     }
   } catch (err) {
-    res.status(403).json({ message: err.message });
+    res.status(403).json({ status: 403, message: err.message });
   } finally {
     client.close();
   }
