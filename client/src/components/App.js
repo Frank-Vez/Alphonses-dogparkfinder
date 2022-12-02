@@ -42,6 +42,7 @@ const App = () => {
       if (isAuthenticated && user) {
         const rawProfile = await fetch(`/API/currentUser/${user.email}`);
         const jsonProfile = await rawProfile.json();
+        console.log(jsonProfile);
         if (jsonProfile.user.email === user.email) {
           setCurrentUser({ ...currentUser, ...jsonProfile.user });
           setUserDogs(jsonProfile.dogs);
@@ -53,7 +54,9 @@ const App = () => {
     if (window.location.href === "http://localhost:3000/") {
       getAlltheInfos();
     }
-  }, [user, isAuthenticated]);
+  }, [isAuthenticated]);
+
+  //move to homepage
 
   console.log(currentUser);
   console.log(userDogs);

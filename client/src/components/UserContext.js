@@ -12,12 +12,15 @@ export const UserProvider = ({ children }) => {
       email: "",
       position: {},
       dogs: [],
-      hasFavorite: true,
-      favoritePark: ["846024c4-4a94-4db5-a966-c335ffe3ebce"],
+      hasFavorite: false,
+      favoritePark: [],
     },
     "current-user"
   );
-  const [mustCreateProfile, setMustCreateProfile] = useState(false);
+  const [mustCreateProfile, setMustCreateProfile] = usePersistedState(
+    false,
+    "mustCreateProfile"
+  );
   const [userDogs, setUserDogs] = usePersistedState([], "user-dogs");
 
   return (
