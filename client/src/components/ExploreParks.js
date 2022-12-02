@@ -67,7 +67,9 @@ const ExploreParks = () => {
   return (
     <div>
       <h1>Explore all our parks here! </h1>
-      <button onClick={() => handleShowFilter()}>Add filters</button>
+      <button onClick={() => handleShowFilter()}>
+        {showFilter ? "Hide filters" : "Add filters"}
+      </button>
       {showFilter ? (
         <div>
           <div>

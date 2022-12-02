@@ -113,7 +113,7 @@ button{
   font-size: 18px;
   padding: 10px ;
   border-radius: 10px;
-  border: none;
+  border: solid transparent 3px;
   margin: 4px 8px;
   max-height: 80px;
   box-sizing: content-box;

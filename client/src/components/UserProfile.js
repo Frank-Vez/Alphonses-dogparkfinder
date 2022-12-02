@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useContext, useState } from "react";
-import { useNavigate } from "react-router";
+import { useContext, useState } from "react";
+
 import Modal from "react-modal";
 import styled from "styled-components";
 import UserForm from "./UserForm";
@@ -10,7 +10,7 @@ import DogForm from "./DogForm";
 import { UserContext } from "./UserContext";
 
 const UserProfile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
   const { currentUser, userDogs, mustCreateProfile } = useContext(UserContext);
 
   console.log(isAuthenticated);
@@ -18,12 +18,17 @@ const UserProfile = () => {
   console.log(mustCreateProfile);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modifyModalIsOpen, , setModifyModalIsOpen] = useState(false);
   //when the user goes to profile page, checks if the the user has a
   //profile in our DB. if he has one, sets the profile to the current user
   //if he doesnt, redirect him to the form to add his infos.
 
   const handleToAdd = () => {
     setModalIsOpen(true);
+  };
+
+  const handleToModify = () => {
+    setModifyModalIsOpen(true);
   };
 
   if (isLoading) {
@@ -51,7 +56,7 @@ const UserProfile = () => {
             <button onClick={handleToAdd}>Add a dog</button>
             <StyledDogContainer>
               {userDogs.map((dog) => {
-                return <DogCard dog={dog} />;
+                return <DogCard dog={dog} currentUser={currentUser} />;
               })}
             </StyledDogContainer>
             <Modal isOpen={modalIsOpen}>

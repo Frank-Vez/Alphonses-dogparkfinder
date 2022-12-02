@@ -31,8 +31,6 @@ const ParkDetails = () => {
     setToggleMap(!toggleMap);
   };
 
-  console.log(currentUser);
-
   const handleAddFavorite = () => {
     addFavoritePark(
       parkId,

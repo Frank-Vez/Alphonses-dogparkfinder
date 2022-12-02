@@ -1,17 +1,26 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const DogCard = ({ dog }) => {
+const DogCard = ({ dog, currentUser }) => {
+  const [modifyModalIsOpen, setModifyModalIsOpen] = useState(false);
+
   return (
-    <StyledCard>
-      <StyledImg src={dog.picture} alt="your dog's photo" />
+    <>
       <div>
-        <h2>{dog.name}</h2>
-        <h3>{dog.breed}</h3>
-        <p>{dog.weight} lbs</p>
-        <p>{dog.height} cm</p>
+        <StyledCard>
+          <StyledImg src={dog.picture} alt="your dog's photo" />
+          <div>
+            <h2>{dog.name}</h2>
+            <h3>{dog.breed}</h3>
+            <p>{dog.weight} lbs</p>
+            <p>{dog.height} cm</p>
+          </div>
+        </StyledCard>
+        <div>
+          <button>Remove</button>
+        </div>
       </div>
-    </StyledCard>
+    </>
   );
 };
 
