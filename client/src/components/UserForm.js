@@ -4,12 +4,16 @@ import Tippy from "@tippyjs/react";
 import { GiBalloonDog } from "react-icons/gi";
 import UploadWidget from "./UploadWidget";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
+import { UserContext } from "./UserContext";
 
 const UserForm = () => {
+  const { setMustCreateProfile } = useContext(UserContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [formData, setFormData] = useState({});
   const [breeds, setBreeds] = useState();
   const [picutreUrl, setPictureUrl] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/API/getAllBreeds")
@@ -26,38 +30,48 @@ const UserForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/API/addNewUser", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          first_name: user.given_name,
-          last_name: user.family_name,
-          email: user.email,
-          address:
-            formData.address +
-            ", " +
-            formData.city +
-            ", " +
-            formData.province +
-            ", Canada",
-          dogs: null,
+    console.log(Object.entries(formData).length);
+    if (Object.entries(formData).length === 10 && picutreUrl) {
+      fetch("/API/addNewUser", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        dog: {
-          name: formData.dogName,
-          weight: formData.dogWeight,
-          height: formData.dogHeight,
-          picture: picutreUrl,
-          neutered: formData.neutered,
-          breed: formData.breed,
-        },
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+        body: JSON.stringify({
+          user: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: user.email,
+            address:
+              formData.address +
+              ", " +
+              formData.city +
+              ", " +
+              formData.province +
+              ", Canada",
+            dogs: null,
+          },
+          dog: {
+            name: formData.dogName,
+            weight: formData.dogWeight,
+            height: formData.dogHeight,
+            picture: picutreUrl,
+            neutered: formData.neutered,
+            breed: formData.breed,
+          },
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          alert("thank you for completing you profile");
+          setMustCreateProfile(false);
+          navigate("/");
+          console.log(data);
+        });
+    } else {
+      alert("All field must be filled");
+    }
   };
 
   if (!isLoading && isAuthenticated && user && breeds) {
@@ -73,7 +87,6 @@ const UserForm = () => {
                 required
                 onChange={(e) => handleChange(e.target.name, e.target.value)}
                 placeholder={"First name"}
-                disabled
                 value={user.given_name}
               />
               <StyledInput
@@ -82,7 +95,6 @@ const UserForm = () => {
                 required
                 onChange={(e) => handleChange(e.target.name, e.target.value)}
                 placeholder={"Last Name"}
-                disabled
                 value={user.family_name}
               />
               <StyledInput
@@ -146,7 +158,7 @@ const UserForm = () => {
                 placeholder={"weight in pounds"}
               />
               <StyledInput
-                type={"text"}
+                type={"number"}
                 name={"dogHeight"}
                 required
                 onChange={(e) => handleChange(e.target.name, e.target.value)}
@@ -194,7 +206,9 @@ const UserForm = () => {
               <UploadWidget setPictureUrl={setPictureUrl} />
             </div>
           </NameSection>
-          <button onClick={handleSubmit}>Complete my profile! </button>
+          <button onClick={(e) => handleSubmit(e)}>
+            Complete my profile!{" "}
+          </button>
         </StyledForm>
       </Wrapper>
     );
