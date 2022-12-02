@@ -27,18 +27,7 @@ const App = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    // console.log("user", user);
-    // console.log("is authenticated", isAuthenticated);
     const getAlltheInfos = async () => {
-      if (!parks) {
-        const allParks = await fetch("/API/getAllParks");
-        const allParksJson = await allParks.json();
-        if (allParksJson.status === 200) {
-          setParks(allParksJson.message);
-        } else {
-          console.log("all parks json status", allParksJson);
-        }
-      }
       if (isAuthenticated && user) {
         console.log("fetchin current user by email");
         const rawProfile = await fetch(`/API/currentUser/${user.email}`);
