@@ -44,10 +44,11 @@ const App = () => {
         const rawProfile = await fetch(`/API/currentUser/${user.email}`);
         const jsonProfile = await rawProfile.json();
         console.log(jsonProfile);
-        if (jsonProfile.status === 200) {
+        if (jsonProfile.status === 200 || jsonProfile.status === 304) {
           if (jsonProfile.user.email === user.email) {
             setCurrentUser({ ...currentUser, ...jsonProfile.user });
             setUserDogs(jsonProfile.dogs);
+            setMustCreateProfile(false);
           }
         }
         if (jsonProfile.status === 206) {
