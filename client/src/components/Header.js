@@ -28,6 +28,7 @@ const Header = () => {
       <StyledNavButtonContainer>
         {isAuthenticated ? (
           <>
+            <StyledNavLink to={"/home"}>Home</StyledNavLink>
             <StyledNavLink to={"/parks"}>Find a park</StyledNavLink>
             <StyledNavLink to={"/proposeAPark"}>Propose a park</StyledNavLink>
           </>

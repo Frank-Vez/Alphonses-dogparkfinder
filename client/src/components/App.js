@@ -26,9 +26,9 @@ const App = () => {
     userDogs,
   } = useContext(UserContext);
 
-  console.log(window.location.href);
-
   useEffect(() => {
+    // console.log("user", user);
+    // console.log("is authenticated", isAuthenticated);
     const getAlltheInfos = async () => {
       if (!parks) {
         const allParks = await fetch("/API/getAllParks");
@@ -36,18 +36,25 @@ const App = () => {
         if (allParksJson.status === 200) {
           setParks(allParksJson.message);
         } else {
-          console.log(allParksJson);
+          console.log("all parks json status", allParksJson);
         }
       }
       if (isAuthenticated && user) {
+        console.log("fetchin current user by email");
         const rawProfile = await fetch(`/API/currentUser/${user.email}`);
         const jsonProfile = await rawProfile.json();
         console.log(jsonProfile);
-        if (jsonProfile.user.email === user.email) {
-          setCurrentUser({ ...currentUser, ...jsonProfile.user });
-          setUserDogs(jsonProfile.dogs);
-        } else {
+        if (jsonProfile.status === 200) {
+          if (jsonProfile.user.email === user.email) {
+            setCurrentUser({ ...currentUser, ...jsonProfile.user });
+            setUserDogs(jsonProfile.dogs);
+          }
+        }
+        if (jsonProfile.status === 206) {
+          console.log(jsonProfile);
           setMustCreateProfile(jsonProfile.mustCreateProfile);
+        } else {
+          console.log(jsonProfile);
         }
       }
     };
@@ -58,9 +65,7 @@ const App = () => {
 
   //move to homepage
 
-  console.log(currentUser);
-  console.log(userDogs);
-  console.log(parks);
+  console.log("currentuser:", currentUser);
 
   return (
     <BrowserRouter>
@@ -68,10 +73,8 @@ const App = () => {
         <GlobalStyle />
         <Header />
         <Routes>
-          <Route
-            path="/"
-            element={isAuthenticated && parks ? <Home /> : <LandingPage />}
-          />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<div>about us page</div>} />
           <Route path="/logIn" element={<div>the log in page</div>} />
           <Route path="/user" end element={<UserProfile />} />

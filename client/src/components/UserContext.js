@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
       email: "",
       position: {},
       dogs: [],
-      hasFavorite: false,
+      hasAFavorite: false,
       favoritePark: [],
     },
     "current-user"

@@ -169,7 +169,7 @@ const getParkNoDetails = async (req, res) => {
     }
     res.status(200).json({ status: 200, park: park });
   } catch (err) {
-    res.status(403).json({ message: err.message });
+    res.status(404).json({ status: 404, message: err.message });
   } finally {
     client.close();
   }
@@ -254,4 +254,5 @@ module.exports = {
   getAllDogs,
   getUserByEmail,
   getAllBreeds,
+  getParkNoDetails,
 };

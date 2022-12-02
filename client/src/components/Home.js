@@ -21,19 +21,28 @@ const Home = () => {
 
   //fetches the currentuser's favorite park
   useEffect(() => {
-    if (currentUser && parks && !favPark) {
+    console.log("home useeffect");
+    console.log("current", currentUser);
+    console.log("fav park", favPark);
+    if (!favPark) {
       console.log("fetching a fucking park details");
-      fetch(`/API/parks/${currentUser.favoritePark[0]}`)
+      fetch(`/API/parks/${currentUser.favoritePark[0]}/noDetails`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
-            setFavPark(data.data);
+            console.log(data);
+            setFavPark(data.park);
+          }
+          if (data.status === 304) {
+            console.log(data);
           } else {
             console.log(data);
           }
         });
     }
-  }, [parks]);
+  }, [favPark, currentUser]);
+
+  console.log("favpark", favPark);
   //settings for the slider
   if (parks && currentUser) {
     return (
@@ -56,7 +65,7 @@ const Home = () => {
           </Swiper>
         </SliderContainer>
         <StyledInfos>
-          {currentUser.hasFavorite && favPark ? (
+          {currentUser.hasAFavorite && favPark ? (
             <div>
               <div>
                 <h2>Your favorite park is</h2>

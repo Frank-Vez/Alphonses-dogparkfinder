@@ -15,6 +15,7 @@ const UserProfile = () => {
 
   console.log(isAuthenticated);
   console.log(currentUser);
+  console.log(mustCreateProfile);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //when the user goes to profile page, checks if the the user has a
