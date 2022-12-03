@@ -2,7 +2,12 @@ import AddComment from "./AddComment";
 import Comment from "./Comment";
 import { useEffect, useState } from "react";
 
-const CommentsSection = ({ comments, parkId }) => {
+const CommentsSection = ({
+  comments,
+  parkId,
+  setCommentsRerender,
+  commentsRerender,
+}) => {
   const [author, setAuthor] = useState();
 
   return (
@@ -12,7 +17,11 @@ const CommentsSection = ({ comments, parkId }) => {
           {comments.map((comment) => {
             return (
               <li>
-                <Comment comment={comment} />
+                <Comment
+                  comment={comment}
+                  setCommentsRerender={setCommentsRerender}
+                  commentsRerender={commentsRerender}
+                />
               </li>
             );
           })}
@@ -22,7 +31,11 @@ const CommentsSection = ({ comments, parkId }) => {
       )}
 
       <section>
-        <AddComment parkId={parkId} />
+        <AddComment
+          parkId={parkId}
+          setCommentsRerender={setCommentsRerender}
+          commentsRerender={commentsRerender}
+        />
       </section>
     </div>
   );

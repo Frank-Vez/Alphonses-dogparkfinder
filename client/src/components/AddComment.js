@@ -1,11 +1,9 @@
 import { useState, useContext } from "react";
 import { UserContext } from "./UserContext";
 
-const AddComment = ({ parkId }) => {
+const AddComment = ({ parkId, setCommentsRerender, commentsRerender }) => {
   const [content, setContent] = useState();
   const { currentUser } = useContext(UserContext);
-
-  console.log(currentUser);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +21,7 @@ const AddComment = ({ parkId }) => {
       .then((res) => res.json())
       .then((data) => console.log(data));
     setContent("");
+    setCommentsRerender(!commentsRerender);
   };
 
   const handleOnChange = (e) => {
@@ -37,6 +36,7 @@ const AddComment = ({ parkId }) => {
         onChange={(e) => {
           handleOnChange(e);
         }}
+        value={content}
       />
       <button onClick={(e) => handleSubmit(e)}>Submit</button>
     </form>

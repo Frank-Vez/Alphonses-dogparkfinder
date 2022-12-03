@@ -3,7 +3,7 @@ import { BsTrash, BsFillPencilFill } from "react-icons/bs";
 import { UserContext } from "./UserContext";
 import { deleteComment, modifyComment } from "./utils.js/fetches";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
   const { currentUser } = useContext(UserContext);
   const [author, setAuthor] = useState(null);
   const [modify, setModify] = useState(false);
@@ -25,7 +25,8 @@ const Comment = ({ comment }) => {
   const handleDelete = (e) => {
     e.preventDefault();
     deleteComment(comment.commentId, comment.park);
-    setRerender(!rerender);
+    setCommentsRerender(!commentsRerender);
+    alert("your comment has been deleted! ");
   };
 
   const handleToggleModify = () => {
@@ -36,7 +37,8 @@ const Comment = ({ comment }) => {
     console.log("its works");
     modifyComment(comment.park, comment.commentId, commentRef.current.value);
     setModify(!modify);
-    setRerender(!rerender);
+    setCommentsRerender(!commentsRerender);
+    alert("your comment has been modified");
   };
   return (
     <>

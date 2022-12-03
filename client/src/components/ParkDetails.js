@@ -16,12 +16,13 @@ const ParkDetails = () => {
   const [toggleMap, setToggleMap] = useState(false);
   const { parkId } = useParams();
   const [parkData, setParkData] = useState(null);
+  const [commentsRerender, setCommentsRerender] = useState(false);
 
   useEffect(() => {
     fetch(`/API/parks/${parkId}`)
       .then((res) => res.json())
       .then((data) => setParkData({ ...data.data, ...data.details }));
-  }, [parkId]);
+  }, [parkId, commentsRerender]);
 
   const handleToggleComments = () => {
     setToggleComments(!toggleComments);
@@ -103,6 +104,8 @@ const ParkDetails = () => {
             <CommentsSection
               comments={parkData.comments}
               parkId={parkData._id}
+              setCommentsRerender={setCommentsRerender}
+              commentsRerender={commentsRerender}
             />
           ) : null}
         </section>
