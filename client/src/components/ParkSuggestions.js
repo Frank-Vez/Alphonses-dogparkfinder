@@ -14,6 +14,7 @@ const ParkSuggestions = () => {
       const allParks = await fetch("/API/getAllParks");
       const allParksJson = await allParks.json();
       if (allParksJson.status === 200) {
+        console.log("got em");
         setParks(allParksJson.message);
       } else {
         console.log("all parks json status", allParksJson);

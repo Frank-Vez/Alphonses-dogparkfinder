@@ -119,7 +119,9 @@ const getAllParks = async (req, res) => {
       message: err.message,
     });
   } finally {
-    client.close();
+    setTimeout(() => {
+      client.close();
+    }, 1500);
   }
 };
 
@@ -171,7 +173,9 @@ const getParkNoDetails = async (req, res) => {
   } catch (err) {
     res.status(404).json({ status: 404, message: err.message });
   } finally {
-    client.close();
+    setTimeout(() => {
+      client.close();
+    }, 1500);
   }
 };
 //I might delete this one and slice/filter the allPark one instead depending on the query.
