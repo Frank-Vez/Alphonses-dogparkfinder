@@ -8,17 +8,15 @@ import { ParkProvider } from "./components/ParkContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <Auth0Provider
-      domain="dev-63al4rlon5s78bvs.us.auth0.com"
-      clientId="8wULfsC6GNWc8TFAwUUnqKw9WmlQI9Dn"
-      redirectUri="http://localhost:3000/"
-    >
-      <ParkProvider>
-        <UserProvider>
-          <App />
-        </UserProvider>
-      </ParkProvider>
-    </Auth0Provider>
-  </React.StrictMode>
+  <Auth0Provider
+    domain="dev-63al4rlon5s78bvs.us.auth0.com"
+    clientId="8wULfsC6GNWc8TFAwUUnqKw9WmlQI9Dn"
+    redirectUri="http://localhost:3000/"
+  >
+    <ParkProvider>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </ParkProvider>
+  </Auth0Provider>
 );

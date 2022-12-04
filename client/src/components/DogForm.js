@@ -1,14 +1,16 @@
 import { GiBalloonDog } from "react-icons/gi";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import UploadWidget from "./UploadWidget";
 import { useAuth0 } from "@auth0/auth0-react";
+import { UserContext } from "./UserContext";
 
 const DogForm = ({ setModalIsOpen, userId }) => {
   // const { user, isAuthenticated, isLoading } = useAuth0();
   const [formData, setFormData] = useState({});
   const [breeds, setBreeds] = useState();
   const [picutreUrl, setPictureUrl] = useState();
+  const { rerenderUser, setRerenderUser } = useContext(UserContext);
 
   console.log(userId);
 
@@ -45,6 +47,9 @@ const DogForm = ({ setModalIsOpen, userId }) => {
       .then((res) => res.json())
       .then((data) => console.log(data));
     setModalIsOpen(false);
+    setTimeout(() => {
+      setRerenderUser(!rerenderUser);
+    }, 1500);
   };
 
   const handleClose = (e) => {

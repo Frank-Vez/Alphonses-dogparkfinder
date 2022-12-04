@@ -69,7 +69,9 @@ const getUserByEmail = async (req, res) => {
   } catch (err) {
     res.status(403).json({ status: 403, message: err.message });
   } finally {
-    client.close();
+    setTimeout(() => {
+      client.close();
+    }, 1500);
   }
 };
 
@@ -245,7 +247,9 @@ const getParkWithDetails = async (req, res) => {
   } catch (err) {
     res.status(403).json({ status: 403, message: err.message });
   } finally {
-    client.close();
+    setTimeout(() => {
+      client.close();
+    }, 1500);
   }
 };
 

@@ -11,7 +11,8 @@ import ParkMap from "./ParkMap";
 import { UserContext } from "./UserContext";
 
 const ParkDetails = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, rerenderUser, setRerenderUser } =
+    useContext(UserContext);
   const [toggleComments, setToggleComments] = useState(false);
   const [toggleMap, setToggleMap] = useState(false);
   const { parkId } = useParams();
@@ -40,6 +41,9 @@ const ParkDetails = () => {
       currentUser.favoritePark[0]
     );
     alert("added to favorite");
+    setTimeout(() => {
+      setRerenderUser(!rerenderUser);
+    }, 1500);
   };
 
   if (parkData) {
