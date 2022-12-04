@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const DogCard = ({ dog, currentUser }) => {
-  const [modifyModalIsOpen, setModifyModalIsOpen] = useState(false);
-
   return (
     <>
       <div>
         <StyledCard>
-          <StyledImg src={dog.picture} alt="your dog's photo" />
+          <StyledImgCont>
+            <StyledImg src={dog.picture} alt="your dog's photo" />
+          </StyledImgCont>
+
           <div>
             <h2>{dog.name}</h2>
             <h3>{dog.breed}</h3>
@@ -16,19 +17,22 @@ const DogCard = ({ dog, currentUser }) => {
             <p>{dog.height} cm</p>
           </div>
         </StyledCard>
-        <div>
-          <button>Remove</button>
-        </div>
+        <div></div>
       </div>
     </>
   );
 };
 
+const StyledImgCont = styled.div`
+  height: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+`;
+
 const StyledImg = styled.img`
-  max-width: 100%;
-  height: auto;
-  max-height: 50%;
-  flex: 1 1 50%;
+  width: 100%;
+  max-height: auto;
 `;
 
 const StyledCard = styled.div`
@@ -40,5 +44,8 @@ const StyledCard = styled.div`
   align-items: center;
   border-radius: 40px;
   margin: 1em;
+  overflow: hidden;
+  box-shadow: 23px 34px 15px -3px rgba(0, 0, 0, 0.1),
+    -25px 10px 15px -3px rgba(0, 0, 0, 0.1);
 `;
 export default DogCard;

@@ -8,7 +8,8 @@ import { useNavigate } from "react-router";
 import { UserContext } from "./UserContext";
 
 const UserForm = () => {
-  const { setMustCreateProfile } = useContext(UserContext);
+  const { setMustCreateProfile, rerenderUser, setRerenderUser } =
+    useContext(UserContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [formData, setFormData] = useState({});
   const [breeds, setBreeds] = useState();
@@ -68,6 +69,9 @@ const UserForm = () => {
           setMustCreateProfile(false);
           navigate("/");
           console.log(data);
+          setTimeout(() => {
+            setRerenderUser(!rerenderUser);
+          }, 1000);
         });
     } else {
       alert("All field must be filled");

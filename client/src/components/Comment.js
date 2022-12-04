@@ -8,7 +8,6 @@ const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
   const [author, setAuthor] = useState(null);
   const [modify, setModify] = useState(false);
   const [rerender, setRerender] = useState(false);
-  console.log(comment);
 
   const commentRef = useRef();
 
@@ -34,11 +33,10 @@ const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
   };
 
   const handleSubmitModify = () => {
-    console.log("its works");
     modifyComment(comment.park, comment.commentId, commentRef.current.value);
     setModify(!modify);
-    setCommentsRerender(!commentsRerender);
     alert("your comment has been modified");
+    setCommentsRerender(!commentsRerender);
   };
   return (
     <>

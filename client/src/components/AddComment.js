@@ -19,9 +19,13 @@ const AddComment = ({ parkId, setCommentsRerender, commentsRerender }) => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
-    setContent("");
-    setCommentsRerender(!commentsRerender);
+      .then((data) => {
+        console.log(data);
+        if (data.status === 200) {
+          setContent("");
+          setCommentsRerender(!commentsRerender);
+        }
+      });
   };
 
   const handleOnChange = (e) => {
