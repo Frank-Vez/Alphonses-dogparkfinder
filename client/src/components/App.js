@@ -14,6 +14,7 @@ import ParkDetails from "./ParkDetails";
 import styled from "styled-components";
 import ExploreParks from "./ExploreParks";
 import ProposeAPark from "./ProposeAPark";
+import AboutUs from "./AboutUs";
 
 const App = () => {
   const { isAuthenticated, user } = useAuth0();
@@ -26,37 +27,6 @@ const App = () => {
     userDogs,
   } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   const getAlltheInfos = async () => {
-  //     if (isAuthenticated && user) {
-  //       console.log("fetchin current user by email");
-  //       const rawProfile = await fetch(`/API/currentUser/${user.email}`);
-  //       const jsonProfile = await rawProfile.json();
-  //       console.log(jsonProfile);
-  //       if (jsonProfile.status === 200 || jsonProfile.status === 304) {
-  //         if (jsonProfile.user.email === user.email) {
-  //           setCurrentUser({ ...currentUser, ...jsonProfile.user });
-  //           setUserDogs(jsonProfile.dogs);
-  //           setMustCreateProfile(false);
-  //         }
-  //       }
-  //       if (jsonProfile.status === 206) {
-  //         console.log(jsonProfile);
-  //         setMustCreateProfile(jsonProfile.mustCreateProfile);
-  //       } else {
-  //         console.log(jsonProfile);
-  //       }
-  //     }
-  //   };
-  //   if (window.location.href === "http://localhost:3000/") {
-  //     getAlltheInfos();
-  //   }
-  // }, [isAuthenticated]);
-
-  //move to homepage
-
-  console.log("currentuser:", currentUser);
-
   return (
     <BrowserRouter>
       <StyledApp>
@@ -65,7 +35,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<div>about us page</div>} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/logIn" element={<div>the log in page</div>} />
           <Route path="/user" end element={<UserProfile />} />
           <Route path="/user/:userId/addDog" element={<DogForm />} />

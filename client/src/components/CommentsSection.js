@@ -1,6 +1,7 @@
 import AddComment from "./AddComment";
 import Comment from "./Comment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import styled from "styled-components";
 
 const CommentsSection = ({
   comments,
@@ -8,12 +9,10 @@ const CommentsSection = ({
   setCommentsRerender,
   commentsRerender,
 }) => {
-  const [author, setAuthor] = useState();
-
   return (
     <div>
       {comments ? (
-        <ul>
+        <StyledUl>
           {comments.map((comment) => {
             return (
               <li>
@@ -25,7 +24,7 @@ const CommentsSection = ({
               </li>
             );
           })}
-        </ul>
+        </StyledUl>
       ) : (
         <p>There are no comments about this park yet, leave one!</p>
       )}
@@ -40,5 +39,11 @@ const CommentsSection = ({
     </div>
   );
 };
+
+const StyledUl = styled.ul`
+  max-height: 200px;
+  width: 50%;
+  overflow: scroll;
+`;
 
 export default CommentsSection;

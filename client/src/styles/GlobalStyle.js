@@ -68,12 +68,12 @@ table {
 h1{
   color: #005034;
   font-family: var(--font-heading);
-  font-size: 30px;
+  font-size: 40px;
 }
 h2{
   color: var(--color-secondary-blue);
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 30px;
   margin:5px;
 }
 h3{
