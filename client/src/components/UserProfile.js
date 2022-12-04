@@ -18,17 +18,9 @@ const UserProfile = () => {
   console.log(mustCreateProfile);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modifyModalIsOpen, , setModifyModalIsOpen] = useState(false);
-  //when the user goes to profile page, checks if the the user has a
-  //profile in our DB. if he has one, sets the profile to the current user
-  //if he doesnt, redirect him to the form to add his infos.
 
   const handleToAdd = () => {
     setModalIsOpen(true);
-  };
-
-  const handleToModify = () => {
-    setModifyModalIsOpen(true);
   };
 
   if (isLoading) {
@@ -81,7 +73,7 @@ const StyledDogSection = styled.section`
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 `;
 
 const Wrapper = styled.div`

@@ -2,13 +2,14 @@ import { useParams } from "react-router";
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { AiOutlineStar } from "react-icons/ai";
-import { CiMapPin } from "react-icons/ci";
-import { ImStatsBars } from "react-icons/im";
+import { BsFillPinMapFill } from "react-icons/bs";
+
 import { addFavoritePark } from "./utils.js/fetches";
 
 import CommentsSection from "./CommentsSection";
 import ParkMap from "./ParkMap";
 import { UserContext } from "./UserContext";
+import ParkDataSection from "./ParkDataSection";
 
 const ParkDetails = () => {
   const { currentUser, rerenderUser, setRerenderUser } =
@@ -51,7 +52,10 @@ const ParkDetails = () => {
       <Body>
         <SubHeader>
           <h1>{parkData.name}</h1>
-          <button onClick={() => handleAddFavorite()}>
+          <button
+            onClick={() => handleAddFavorite()}
+            disabled={currentUser.favoritePark[0] === parkId ? true : false}
+          >
             {currentUser.favoritePark[0] === parkId
               ? "already Favorite"
               : " Make favorite"}
@@ -59,47 +63,17 @@ const ParkDetails = () => {
             <AiOutlineStar />
           </button>
         </SubHeader>
-        <StyledSection>
-          <ImgContainer>
-            <StyledImg src={parkData.mainPicture} alt="park for dogs" />
-          </ImgContainer>
-          <div>
-            <div>
-              {parkData.position ? (
-                <>
-                  <CiMapPin size={30} /> <p>{parkData.position.address}</p>
-                </>
-              ) : null}
+        <ParkDataSection parkData={parkData} />
+        <PositionControl>
+          {parkData.position ? (
+            <PinAddressStyled>
+              <BsFillPinMapFill size={40} color={"#005034"} fill={"#005034"} />{" "}
+              <p>{parkData.position.address}</p>
+            </PinAddressStyled>
+          ) : null}
 
-              <button onClick={handleToggleMap}> Get there!</button>
-            </div>
-            <div>
-              <ImStatsBars size={30} />
-              <div>
-                <h3>
-                  This data is taken from all the dogs frequenting the park of a
-                  regular basis:
-                </h3>
-                {parkData.averageWeight ? (
-                  <p>Average weight: {parkData.averageWeight}</p>
-                ) : null}
-                {parkData.averageHeight ? (
-                  <p>Average height: {parkData.averageHeight}</p>
-                ) : null}
-                {parkData.mostCommonBreeds?.length > 0 ? (
-                  <ol>
-                    Most common breeds:
-                    {parkData.mostCommonBreeds.slice(0, 3).map((breed) => {
-                      return <li key={breed[0] + breed[1]}>{breed[0]}</li>;
-                    })}
-                  </ol>
-                ) : null}
-
-                <p>% of dogs neutered: {parkData.neuteredRatio}</p>
-              </div>
-            </div>
-          </div>
-        </StyledSection>
+          <button onClick={handleToggleMap}> Get there!</button>
+        </PositionControl>
         <section>
           <button onClick={handleToggleComments}>
             {toggleComments ? "Hide comments" : "See comments"}
@@ -119,20 +93,13 @@ const ParkDetails = () => {
   }
 };
 
-const StyledImg = styled.img`
-  width: 100%;
-  height: auto;
-`;
-
-const ImgContainer = styled.div`
-  flex: 0 0 50%;
-`;
-
-const StyledSection = styled.section`
+const PositionControl = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: auto;
+`;
+
+const PinAddressStyled = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Body = styled.div`

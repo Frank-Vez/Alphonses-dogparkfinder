@@ -51,22 +51,29 @@ const ParkSuggestions = () => {
 };
 
 const SliderContainer = styled.div`
-  /* max-width: 500px; */
   max-height: 500px;
-  flex: 1;
-  border: solid 1px blue;
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20px 17px 17px 5px rgba(0, 0, 0, 0.1),
+    -32px 21px 15px -3px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+
   .swiper {
     width: 240px;
-    height: 320px;
+    height: 420px;
   }
 
   .swiper-slide {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
-    border-radius: 18px;
-    font-size: 22px;
-    font-weight: bold;
+    border-radius: 50px;
+    /* width: max-content; */
+    /* font-size: 22px; */
+    /* font-weight: bold; */
     color: #fff;
   }
 `;

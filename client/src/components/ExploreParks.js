@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ParkCard from "./ParkCard";
+import styled from "styled-components";
 
 const ExploreParks = () => {
   const [parks, setParks] = useState();
@@ -90,15 +91,23 @@ const ExploreParks = () => {
           <button onClick={() => handleClear()}>Clear filters</button>
         </div>
       ) : null}
-      {filteredParks.length > 0 ? (
-        filteredParks.map((park) => {
-          return <ParkCard park={park} />;
-        })
-      ) : (
-        <p>no parks correspond to your search :(</p>
-      )}
+      <CardsWrapper>
+        {filteredParks.length > 0 ? (
+          filteredParks.map((park) => {
+            return <ParkCard park={park} />;
+          })
+        ) : (
+          <p>no parks correspond to your search :(</p>
+        )}
+      </CardsWrapper>
     </div>
   );
 };
+
+const CardsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 export default ExploreParks;

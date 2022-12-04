@@ -21,8 +21,6 @@ const Home = () => {
 const PageBody = styled.div`
   display: flex;
   flex-direction: row;
-  /* height: 100%; */
-  border: solid 1px black;
 `;
 
 export default Home;

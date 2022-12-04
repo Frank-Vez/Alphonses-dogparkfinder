@@ -54,8 +54,14 @@ const FavoritePark = () => {
 };
 
 const StyledInfos = styled.div`
-  flex: 1;
-  border: solid 1px green;
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20px 17px 17px 5px rgba(0, 0, 0, 0.1),
+    -32px 21px 15px -3px rgba(0, 0, 0, 0.1);
+  margin: 10px;
 `;
 
 const ParkImg = styled.img`

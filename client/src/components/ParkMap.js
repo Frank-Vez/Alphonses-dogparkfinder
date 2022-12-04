@@ -51,7 +51,6 @@ const ParkMap = ({ parkPosition }) => {
 
   return (
     <div>
-      hello from map
       {!isLoaded ? (
         <p>...loading...</p>
       ) : (
