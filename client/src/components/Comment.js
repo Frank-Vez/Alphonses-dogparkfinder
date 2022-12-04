@@ -7,19 +7,18 @@ const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
   const { currentUser } = useContext(UserContext);
   const [author, setAuthor] = useState(null);
   const [modify, setModify] = useState(false);
-  const [rerender, setRerender] = useState(false);
 
   const commentRef = useRef();
 
-  useEffect(() => {
-    fetch(`/API/users/${comment.author}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          setAuthor(data.user);
-        }
-      });
-  }, [rerender]);
+  // useEffect(() => {
+  //   fetch(`/API/users/${comment.author}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.status === 200) {
+  //         setAuthor(data.user);
+  //       }
+  //     });
+  // }, [rerender]);
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -40,41 +39,35 @@ const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
   };
   return (
     <>
-      {author ? (
+      <div>
+        <h3>{comment.author.name}</h3>
+        {!modify ? (
+          <p>{comment.comment}</p>
+        ) : (
+          <input type={"text"} placeholder={comment.comment} ref={commentRef} />
+        )}
+
+        <p>{comment.time}</p>
         <div>
-          <h3>{author.first_name}</h3>
-          {!modify ? (
-            <p>{comment.comment}</p>
-          ) : (
-            <input
-              type={"text"}
-              placeholder={comment.comment}
-              ref={commentRef}
-            />
-          )}
+          {currentUser._id === comment.author.id ? (
+            <div>
+              <button
+                onClick={
+                  !modify
+                    ? () => handleToggleModify()
+                    : () => handleSubmitModify()
+                }
+              >
+                <BsFillPencilFill />
+              </button>
 
-          <p>{comment.time}</p>
-          <div>
-            {currentUser._id === comment.author ? (
-              <div>
-                <button
-                  onClick={
-                    !modify
-                      ? () => handleToggleModify()
-                      : () => handleSubmitModify()
-                  }
-                >
-                  <BsFillPencilFill />
-                </button>
-
-                <button onClick={(e) => handleDelete(e)}>
-                  <BsTrash />
-                </button>
-              </div>
-            ) : null}
-          </div>
+              <button onClick={(e) => handleDelete(e)}>
+                <BsTrash />
+              </button>
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </div>
     </>
   );
   // }

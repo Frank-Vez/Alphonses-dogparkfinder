@@ -195,6 +195,30 @@ const getParkWithDetails = async (req, res) => {
     if (!park) {
       throw new Error("no park found");
     }
+
+    //generate an author Id array from the comment
+    const mappedId = park.comments.map((comment) => {
+      return comment.author;
+    });
+
+    //loop over the mappedId array to get the author of the comments
+    const author = await db
+      .collection(userCollection)
+      .find({ _id: { $in: mappedId } })
+      .toArray();
+
+    //adds the author to the comment
+    const commentsWithAuthor = park.comments.map((comment) => {
+      for (const name of author) {
+        if (name._id === comment.author) {
+          return {
+            ...comment,
+            author: { name: name.first_name, id: name._id },
+          };
+        }
+      }
+    });
+
     // loop over the park.dogs array to get all the dogs infos and place them in an array
     const infos = await db
       .collection(dogsCollection)
@@ -243,7 +267,11 @@ const getParkWithDetails = async (req, res) => {
       mostCommonBreeds: Object.entries(cleanArr),
     };
 
-    res.status(200).json({ status: 200, data: park, details: parkDetails });
+    res.status(200).json({
+      status: 200,
+      data: { ...park, comments: commentsWithAuthor },
+      details: parkDetails,
+    });
   } catch (err) {
     res.status(403).json({ status: 403, message: err.message });
   } finally {
