@@ -1,13 +1,15 @@
 import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import styled from "styled-components";
 
 const FavoritePark = () => {
+  const navigate = useNavigate();
   const [favPark, setFavPark] = useState();
   const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (!favPark) {
+    if (!favPark && currentUser.hasAFavorite) {
       console.log("fetching a fucking park details");
       fetch(`/API/parks/${currentUser.favoritePark[0]}/noDetails`)
         .then((res) => res.json())
@@ -25,6 +27,10 @@ const FavoritePark = () => {
     }
   }, [favPark, currentUser]);
 
+  const handleToParks = () => {
+    navigate("/parks");
+  };
+
   return (
     <StyledInfos>
       {currentUser.hasAFavorite && favPark ? (
@@ -40,7 +46,7 @@ const FavoritePark = () => {
         <div>
           <h2>You don't have a favorite park yet</h2>
           <p>Explore the parks to set your favorite park</p>
-          <button>See all the parks</button>
+          <button onClick={() => handleToParks()}>See all the parks</button>
         </div>
       )}
     </StyledInfos>

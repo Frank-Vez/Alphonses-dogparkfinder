@@ -126,7 +126,7 @@ const DogForm = ({ setModalIsOpen, userId }) => {
           <p>Import a picture of your dog:</p>
           <UploadWidget setPictureUrl={setPictureUrl} />
         </div>
-        <button onClick={handleSubmit}>close modal</button>
+        <button onClick={handleSubmit}>Save your dog</button>
       </NameSection>
       <button onClick={handleClose}>close</button>
     </>
