@@ -62,7 +62,7 @@ const SliderContainer = styled.div`
   margin: 10px;
 
   .swiper {
-    width: 240px;
+    width: 340px;
     height: 420px;
   }
 
@@ -71,6 +71,8 @@ const SliderContainer = styled.div`
     /* align-items: center; */
     justify-content: center;
     border-radius: 50px;
+    height: 500px;
+    width: 350px;
     /* width: max-content; */
     /* font-size: 22px; */
     /* font-weight: bold; */

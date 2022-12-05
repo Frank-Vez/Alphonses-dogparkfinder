@@ -1,4 +1,4 @@
-//function to delete a commment
+//function to delete a commment, fetch the delete comment Patch API
 export const deleteComment = (commentId, parkId) => {
   fetch(`/API/parks/${parkId}/deleteComment`, {
     method: "PATCH",
@@ -13,6 +13,7 @@ export const deleteComment = (commentId, parkId) => {
     .then((res) => res.json())
     .then((data) => console.log(data));
 };
+//function to modify a commment, fetch the modify comment Patch API
 
 export const modifyComment = (parkId, commentId, comment) => {
   fetch(`/API/parks/${parkId}/modifyComment`, {
@@ -29,6 +30,8 @@ export const modifyComment = (parkId, commentId, comment) => {
     .then((res) => res.json())
     .then((data) => console.log(data));
 };
+
+//function to add a favorite park. This one sends the park _id, user._id, the array of dogs of the owner and the oldFavorite parkId
 
 export const addFavoritePark = (parkId, userId, dogs, oldPark) => {
   fetch(`/API/parks/${parkId}/favorite`, {

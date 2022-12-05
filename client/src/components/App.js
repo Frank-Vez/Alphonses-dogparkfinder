@@ -1,32 +1,21 @@
+//imports the functions needed from react and auth0
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useContext } from "react";
+import styled from "styled-components";
+
+//import the needed components
 import GlobalStyle from "../styles/GlobalStyle";
 import Header from "./Header";
 import UserProfile from "./UserProfile";
-import MustBeLoggedIn from "./MustBeLoggedIn";
 import LandingPage from "./LandingPage";
 import DogForm from "./DogForm";
 import Home from "./Home";
-import { ParkContext } from "./ParkContext";
-import { UserContext } from "./UserContext";
 import ParkDetails from "./ParkDetails";
-import styled from "styled-components";
 import ExploreParks from "./ExploreParks";
 import ProposeAPark from "./ProposeAPark";
 import AboutUs from "./AboutUs";
 
+//the App component sets the page for the website and the routes for each components
 const App = () => {
-  const { isAuthenticated, user } = useAuth0();
-  const { parks, setParks } = useContext(ParkContext);
-  const {
-    currentUser,
-    setCurrentUser,
-    setUserDogs,
-    setMustCreateProfile,
-    userDogs,
-  } = useContext(UserContext);
-
   return (
     <BrowserRouter>
       <StyledApp>

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+//this is the cloudinary upload widget.
+// it lets the user send a picutre and sets the url in the state.
 const UploadWidget = ({ setPictureUrl }) => {
   const [uploaded, setUpdloaded] = useState(false);
   const cloudinaryRef = useRef();

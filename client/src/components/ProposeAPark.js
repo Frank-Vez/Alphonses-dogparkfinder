@@ -2,7 +2,10 @@ import { useState } from "react";
 import UploadWidget from "./UploadWidget";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
-
+//this component lets the user propose a park.
+//it goes in a proposition db that an admin will later be able to accept or discard and
+//will be added to the park DB.
+//the admin page hasnt been done yet
 const ProposeAPark = () => {
   //name,position{geo, address},dogs:[], amenities,picture,comment:[]
   const [formData, setFormData] = useState({});

@@ -1,13 +1,21 @@
+//import hooks from react
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import styled from "styled-components";
 
+//this component renders the favorite park infos if the user has one, propose the user
+//to select one if he doesnt have a favorite park.
 const FavoritePark = () => {
+  //sts navigate as a hook
   const navigate = useNavigate();
+  //declare a state to receive the favorite park infos
   const [favPark, setFavPark] = useState();
+  //imports user from context
   const { currentUser } = useContext(UserContext);
 
+  //if the user Has a favorite park but we dont have the infos,
+  //this useeffect fetches them and sets them in the favpark state
   useEffect(() => {
     if (!favPark && currentUser.hasAFavorite) {
       console.log("fetching a fucking park details");
@@ -27,6 +35,7 @@ const FavoritePark = () => {
     }
   }, [favPark, currentUser]);
 
+  //brings the user the the explore park components
   const handleToParks = () => {
     navigate("/parks");
   };

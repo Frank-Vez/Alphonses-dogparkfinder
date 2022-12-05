@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const DogCard = ({ dog, currentUser }) => {
+//this component renders the dogcards
+const DogCard = ({ dog }) => {
   return (
     <>
       <div>

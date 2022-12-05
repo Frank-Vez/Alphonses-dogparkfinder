@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+//the about us components contains the about us page.
+
 const AboutUs = () => {
   return (
     <BackGroundImg>
