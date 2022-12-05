@@ -22,7 +22,7 @@ const ParkCard = ({ park }) => {
             if (park.amenities.indexOf(amenity) === park.amenities.length - 1) {
               return `${amenity}` + ".";
             }
-            return `${amenity}` + " , ";
+            return `${amenity}` + ", ";
           })}
         </p>
       </InfosContainer>

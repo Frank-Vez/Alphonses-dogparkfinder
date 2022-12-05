@@ -72,7 +72,7 @@ const Wrapper = styled.div`
 
 const BackGroundImg = styled.div`
   background-image: url("https://res.cloudinary.com/drve0nkv3/image/upload/v1669941481/e8l2ytb2zgjarif0lmzy.jpg");
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   height: 100vh;
 `;
 
