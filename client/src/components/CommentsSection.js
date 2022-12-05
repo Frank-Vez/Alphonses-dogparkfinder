@@ -1,8 +1,8 @@
 import AddComment from "./AddComment";
 import Comment from "./Comment";
-import { useState } from "react";
 import styled from "styled-components";
 
+//this components renders the comments section
 const CommentsSection = ({
   comments,
   parkId,

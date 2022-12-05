@@ -4,6 +4,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const UserContext = createContext(null);
 
+//this provider sets the user info for the whole website.
+//it is updated eachtime the rerender is called.
+
 export const UserProvider = ({ children }) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [currentUser, setCurrentUser] = usePersistedState(

@@ -1,41 +1,42 @@
-import { useContext, useEffect, useState, useRef } from "react";
-import { BsTrash, BsFillPencilFill } from "react-icons/bs";
-import { UserContext } from "./UserContext";
+// imports hooks from react
+import { useContext, useState, useRef } from "react";
+//import functions from fetches
 import { deleteComment, modifyComment } from "./utils.js/fetches";
 
-const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
-  const { currentUser } = useContext(UserContext);
-  const [author, setAuthor] = useState(null);
-  const [modify, setModify] = useState(false);
+import { BsTrash, BsFillPencilFill } from "react-icons/bs";
+import { UserContext } from "./UserContext";
 
+//This component renders each comments on its own. It the user Id of the comment is the same as the currentUserId, you can also modify or delete your comment.
+const Comment = ({ comment, commentsRerender, setCommentsRerender }) => {
+  //imports the currentuser from the context
+  const { currentUser } = useContext(UserContext);
+  //declare state to know if the user is modyfying a comment
+  const [modify, setModify] = useState(false);
+  // declare a useref hook for the comment
   const commentRef = useRef();
 
-  // useEffect(() => {
-  //   fetch(`/API/users/${comment.author}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.status === 200) {
-  //         setAuthor(data.user);
-  //       }
-  //     });
-  // }, [rerender]);
-
+  //calls the deletes a comment fetch
   const handleDelete = (e) => {
     e.preventDefault();
     deleteComment(comment.commentId, comment.park);
     setCommentsRerender(!commentsRerender);
     alert("your comment has been deleted! ");
   };
-
+  //toggles modify on or off
   const handleToggleModify = () => {
     setModify(!modify);
   };
 
+  //calls the modify comment fetch, close the modify, rerenders the comments
   const handleSubmitModify = () => {
-    modifyComment(comment.park, comment.commentId, commentRef.current.value);
-    setModify(!modify);
-    alert("your comment has been modified");
-    setCommentsRerender(!commentsRerender);
+    if (commentRef.current.value === "") {
+      setModify(!modify);
+    } else {
+      modifyComment(comment.park, comment.commentId, commentRef.current.value);
+      setModify(!modify);
+      alert("your comment has been modified");
+      setCommentsRerender(!commentsRerender);
+    }
   };
   return (
     <>

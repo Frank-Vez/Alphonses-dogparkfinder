@@ -1,29 +1,25 @@
 import styled from "styled-components";
-import { GiBalloonDog } from "react-icons/gi";
-import { useNavigate, NavLink } from "react-router-dom";
+//import hooks from react
+import { NavLink } from "react-router-dom";
+//import useAuth0
+import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./login";
 import LogoutButton from "./logout";
-import { useAuth0 } from "@auth0/auth0-react";
+import { GiBalloonDog } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 
+//renders the Header
 const Header = () => {
+  //imports the isAuthenticated and isLoading state from auth0
   const { isAuthenticated, isLoading } = useAuth0();
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate("/");
-  };
-
-  const handleToUser = () => {
-    navigate("/user");
-  };
 
   return (
     <StyledHeader>
       <div>
-        <a onClick={handleHome}>
+        <a href="/">
           <GiBalloonDog size={77} color={"var(--color-secondary-blue)"} />
+          <StyledLogo>Alphonse's</StyledLogo>
         </a>
-        <StyledLogo onClick={handleHome}>Alphonse's</StyledLogo>
       </div>
       <StyledNavButtonContainer>
         {isAuthenticated ? (
@@ -38,7 +34,7 @@ const Header = () => {
         {!isLoading && isAuthenticated ? <LogoutButton /> : null}
         {isAuthenticated ? (
           <>
-            <a onClick={handleToUser}>
+            <a href="/user">
               <StyledUser size={40} color={"var(--color-secondary-green)"} />
             </a>
           </>

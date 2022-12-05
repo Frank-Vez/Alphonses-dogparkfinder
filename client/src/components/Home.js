@@ -1,11 +1,13 @@
-import { UserContext } from "./UserContext";
+//import hooks from react
 import { useContext } from "react";
+//import components
+import { UserContext } from "./UserContext";
 import styled from "styled-components";
 import ParkSuggestions from "./ParkSuggestions";
 import FavoritePark from "./FavoritePark";
 
 const Home = () => {
-  console.log("mounting the home component");
+  //import the current user from context
   const { currentUser } = useContext(UserContext);
 
   if (currentUser) {

@@ -1,12 +1,19 @@
+//imports the hooks from react
 import { useEffect, useState } from "react";
+
 import ParkCard from "./ParkCard";
 import styled from "styled-components";
-
+//this renders the explore parks components, the shows all the parks currently available on the app
+//and lets the user filters them
 const ExploreParks = () => {
+  //declare the parks state
   const [parks, setParks] = useState();
+  //declare the state to toggle the filters
   const [showFilter, setShowFilter] = useState(false);
+  //declare the state to accept which filters are used
   const [filters, setFilters] = useState([]);
 
+  //these are the actual filter options, will be changed in the future for something bigger.
   const filtersOptions = [
     "bench",
     "water fountain",
@@ -18,7 +25,7 @@ const ExploreParks = () => {
     "trees",
     "tables",
   ];
-
+  //fetches all the parks
   useEffect(() => {
     fetch("/API/getAllParks")
       .then((res) => res.json())
@@ -29,10 +36,11 @@ const ExploreParks = () => {
       });
   }, []);
 
+  //toggle filters section to be shown
   const handleShowFilter = () => {
     setShowFilter(!showFilter);
   };
-
+  //sets the filters state with the checked options
   const handleOptions = (e) => {
     if (e.target.checked) {
       setFilters([...filters, e.target.value]);
@@ -47,12 +55,14 @@ const ExploreParks = () => {
       }
     }
   };
-
+  //removes the filters from the array, need to find a way to uncheck the input as well
   const handleClear = () => {
     setFilters([]);
   };
+  //functions to check if the arr of the park as all the filters
   const filterChecker = (arr, target) => target.every((v) => arr.includes(v));
 
+  //adds the park to the arr if it as all the filters
   const filteredParks = [];
   if (parks) {
     for (const park of parks) {
@@ -62,8 +72,6 @@ const ExploreParks = () => {
       }
     }
   }
-
-  console.log(filteredParks);
 
   return (
     <div>

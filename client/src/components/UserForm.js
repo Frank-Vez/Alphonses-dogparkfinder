@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Tippy from "@tippyjs/react";
+
 import { GiBalloonDog } from "react-icons/gi";
 import UploadWidget from "./UploadWidget";
 import styled from "styled-components";

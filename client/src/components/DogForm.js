@@ -1,32 +1,38 @@
-import { GiBalloonDog } from "react-icons/gi";
-import styled from "styled-components";
+//import hooks from react
 import { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
+//import upload widget to add pictures
 import UploadWidget from "./UploadWidget";
-import { useAuth0 } from "@auth0/auth0-react";
+
+import { GiBalloonDog } from "react-icons/gi";
 import { UserContext } from "./UserContext";
 
+//this component renders the form to add a dog in the modal
 const DogForm = ({ setModalIsOpen, userId }) => {
-  // const { user, isAuthenticated, isLoading } = useAuth0();
+  //declares the state to accepts the form data
   const [formData, setFormData] = useState({});
+  //declares a state to accepts the breeds from the fetch
   const [breeds, setBreeds] = useState();
+  //declares a state to accept the picture url after uploading it
   const [picutreUrl, setPictureUrl] = useState();
+  //imports the rerender state from the UserContext
   const { rerenderUser, setRerenderUser } = useContext(UserContext);
 
-  console.log(userId);
-
+  //sets the form data to a key-value pari from all the input
   const handleChange = (key, value) => {
     setFormData({
       ...formData,
       [key]: value,
     });
   };
-
+  //fetch all the breeds from the db on mount only
   useEffect(() => {
     fetch("/API/getAllBreeds")
       .then((res) => res.json())
       .then((data) => setBreeds(data.data));
   }, []);
 
+  //fetch PATCh to submit the dog, then rerender the user
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`/API/user/${userId}/addADog`, {
@@ -52,6 +58,7 @@ const DogForm = ({ setModalIsOpen, userId }) => {
     }, 1500);
   };
 
+  //close the form
   const handleClose = (e) => {
     e.preventDefault();
     setModalIsOpen(false);
